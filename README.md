@@ -46,3 +46,17 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## credit
 Photo by https://unsplash.com/@eberhardgross?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" eberhard grossgasteiger on https://unsplash.com/s/photos/mountains?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText Unsplash
+
+stored for now: <QuestionCard 
+        //is set to number + 1 because we don't want our users to see zero as the first question as its from an array.
+        questionNr={number + 1}
+        //easier to change it if we want to modify
+        totalQuestions={TOTAL_QUESTIONS}
+        //this is how we are accessing each prop needed.
+        question={questions[number].question}
+        answers={questions[number].answers}
+        //if userAnswers get it, otherwise leave it undefined.
+        userAnswer={userAnswers ? userAnswers[number] : undefined}
+        callback={checkAnswer}
+        //we've now passed all our props.
+      />
