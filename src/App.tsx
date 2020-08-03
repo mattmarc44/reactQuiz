@@ -44,12 +44,33 @@ function App() {
 
   //e is for event my man.
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-
+    if(!gameOver) {
+      //users answer 
+      const answer = e.currentTarget.value;
+      //right answer as booO LIAM
+      const correct = questions[number].correct_answer === answer;
+      //add score if answer is correct
+      if (correct) {setScore((prev) => prev + 1)}
+      //save answer in the array for user answers
+      const AnswerObject = {
+        question: questions[number].question,
+        answer,
+        correct,
+        correctAnswer: questions[number].correct_answer
+      };
+      setUserAnswers((prev) => [...prev, AnswerObject]);
+    }
   }
 
   const nextQuestion = () => {
-
-  }
+    //move on to the next question if not the last question
+    const nextQuestion = number + 1;
+    if (nextQuestion === TOTAL_QUESTIONS) {
+      setGameOver(true);
+    } else {
+      setNumber(nextQuestion);
+    }
+  };
 
   return (
     <div className="App">
@@ -80,9 +101,13 @@ function App() {
         //we've now passed all our props.
       }
 
-      <button className="next" onClick={nextQuestion}>
-        Next
-      </button>
+      
+      { !gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
+        //only shows if its not gameover, loading or its not reached the end of the questions.
+        <button className="next" onClick={nextQuestion}>
+          Next
+        </button>
+      ) : null }
     </div>
   );
 }
